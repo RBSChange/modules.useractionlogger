@@ -1,0 +1,6 @@
+wuseractionoptions{
+	-moz-binding: url(binding:modules.useractionlogger.wUserActionOptions#wUserActionOptions);
+}
+wuseractionresults{
+	-moz-binding: url(binding:modules.useractionlogger.wUserActionResults#wUserActionResults);
+}

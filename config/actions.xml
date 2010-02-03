@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+	<action name="onFilterChanged">
+		<parameter name="filterInfo" />
+		<body><![CDATA[
+			this.getElementByAnonId("useractionresults").refresh(filterInfo);
+		]]></body>
+	</action>
+</actions>

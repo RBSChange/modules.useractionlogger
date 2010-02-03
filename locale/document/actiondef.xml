@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<localization>
+  <entity id="document-name">
+    <locale lang="fr">actiondef</locale>
+    <locale lang="en">actiondef</locale>
+  </entity>
+  <entity id="label">
+		<locale lang="fr">libellé</locale>
+		<locale lang="en">label</locale>
+  </entity>
+  <entity id="modulename">
+    <locale lang="fr">nom du module</locale>
+    <locale lang="en">module name</locale>
+  </entity>
+  <entity id="actionname">
+    <locale lang="fr">nom de l'action</locale>
+    <locale lang="en">action name</locale>
+  </entity>
+</localization>

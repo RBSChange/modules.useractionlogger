@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<perspective>
+	<models>
+		<model name="modules_generic/rootfolder">
+			<children>
+				<child model="modules_generic/folder" />
+				<child model="modules_useractionlogger/actiondef" />
+			</children>
+			<drops>
+				<drop model="modules_generic/folder" action="move" />
+			</drops>
+			<contextactions>
+				<contextaction name="edit" />
+				<contextaction name="createFolder" />
+				<contextaction name="openOrderChildren" />
+			</contextactions>
+		</model>
+		<model name="modules_generic/folder">
+			<children>
+				<child model="modules_generic/folder" />
+				<child model="modules_useractionlogger/actiondef" />
+			</children>
+			<drops>
+				<drop model="modules_generic/folder" action="move" />
+			</drops>
+			<contextactions>
+				<contextaction name="edit" />
+				<contextaction name="delete" />
+				<contextaction name="translateFrom" />
+				<contextaction name="createFolder" />
+				<contextaction name="openOrderChildren" />
+				<contextaction name="openFolder" />
+			</contextactions>
+		</model>
+		<model name="modules_useractionlogger/actiondef">
+			<contextactions>
+				<contextaction name="edit" />
+			</contextactions>			
+		</model>
+	</models>
+	<toolbar>
+		<toolbarbutton name="edit" />
+	</toolbar>
+	<actions>
+		<action name="delete" permission="Delete" icon="delete2" label="&amp;modules.uixul.bo.actions.Delete;" />
+		<action name="edit" single="true" permission="Load" icon="document_edit" label="&amp;modules.uixul.bo.actions.Edit;" />
+		<action name="translateFrom" single="true" permission="LoadForTranslation" icon="documents_new" label="&amp;modules.uixul.bo.general.translation.Translate-fromEllipsis;" />
+		<action name="openOrderChildren" single="true" permission="Order" icon="document_exchange" label="&amp;modules.uixul.bo.actions.Set-children-order;" />
+		<action name="move" permission="Move" icon="up_down" label="&amp;modules.uixul.bo.actions.Move;" />
+		<action name="openFolder" icon="folder_into" label="&amp;modules.uixul.bo.actions.OpenFolder;" />
+	</actions>
+</perspective>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bindings xmlns="http://www.mozilla.org/xbl" xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<binding id="wUserActionOptions" extends="widgets.wWidget#wWidget">
+		<implementation>
+			<constructor><![CDATA[
+				var list = this.getElementById("moduleListItems");
+				var parameters = {filtername: 'module'}
+				var results = this.getController().executeJSON('useractionlogger', 'GetFilterValues', parameters);
+				for (var i = 0; i < results.length; i++)
+				{
+					var item = document.createElement("menuitem");
+					item.setAttribute("label", results[i].label);
+					item.setAttribute("value", results[i].id);
+					list.appendChild(item);
+				}
+				
+				list = this.getElementById("actionListItems");
+				parameters = {filtername: 'action'}
+				results = this.getController().executeJSON('useractionlogger', 'GetFilterValues', parameters);
+				for (var i = 0; i < results.length; i++)
+				{
+					var item = document.createElement("menuitem");
+					item.setAttribute("label", results[i].label);
+					item.setAttribute("value", results[i].id);
+					item.setAttribute("wmodule", results[i].module);
+					list.appendChild(item);
+				}	
+				
+				list = this.getElementById("userListItems");
+				parameters = {filtername: 'user'}
+				results = this.getController().executeJSON('useractionlogger', 'GetFilterValues', parameters);
+				for (var i = 0; i < results.length; i++)
+				{
+					var item = document.createElement("menuitem");
+					item.setAttribute("label", results[i].label);
+					item.setAttribute("value", results[i].id);
+					list.appendChild(item);
+				}
+			]]></constructor>
+
+			<method name="filterChanged">
+				<body><![CDATA[
+					this.getModule().onFilterChanged(this.getFiltersParameters());
+				]]></body>
+			</method>
+			
+			<method name="getFiltersParameters">
+				<body><![CDATA[
+					var result = {};
+					result.module = this.getSelectedModule();
+					result.action = this.getSelectedAction();	
+					result.user = this.getSelectedUser();			
+					return result;
+				]]></body>
+			</method>
+			
+			<method name="getSelectedModule">
+				<body><![CDATA[
+					var moduleList = this.getElementById("moduleList");
+					if (moduleList.selectedItem)
+					{
+						var val = moduleList.selectedItem.value;
+						if (val != '')
+						{
+							return val;
+						}
+					}
+					return null;
+				]]></body>
+			</method>			
+
+			<method name="getSelectedAction">
+				<body><![CDATA[
+					var actionList = this.getElementById("actionList");
+					if (actionList.selectedItem)
+					{
+						var val = actionList.selectedItem.value;
+						if (val != '')
+						{
+							return val;
+						}
+					}
+					return null;
+				]]></body>
+			</method>	
+			
+			<method name="getSelectedUser">
+				<body><![CDATA[
+					var userList = this.getElementById("userList");
+					if (userList.selectedItem)
+					{
+						var val = userList.selectedItem.value;
+						if (val != '')
+						{
+							return val;
+						}
+					}
+					return null;
+				]]></body>
+			</method>	
+			
+			<method name="moduleChanged">
+				<body><![CDATA[
+					var actionList = this.getElementById("actionList");
+					var moduleName = this.getSelectedModule();
+					var items = actionList.getElementsByTagName('menuitem');
+					for (var i=0; i < items.length; i++)
+					{
+						var item = items[i];
+						if (item.value != '')
+						{
+							if (moduleName == null)
+							{
+								item.removeAttribute('collapsed');
+							}
+							else
+							{
+								var r = new RegExp(moduleName + ';', 'g')
+								if (r.test(item.getAttribute('wmodule')))
+								{
+									item.removeAttribute('collapsed');
+								}
+								else
+								{
+									item.setAttribute('collapsed', 'true');
+									if (item.selected)
+									{
+										actionList.selectedIndex = 0;
+									}
+								}
+							}
+						}
+					}
+					this.filterChanged();
+				]]></body>
+			</method>
+			
+			<method name="actionChanged">
+				<body><![CDATA[
+					this.filterChanged();
+				]]></body>
+			</method>
+
+		</implementation>
+		<xbl:content
+			xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+			xmlns:xbl="http://www.mozilla.org/xbl">
+			<toolbox anonid="top-toolbox" orient="vertical" dir="normal"
+				flex="1">
+				<toolbar flex="1" style="background-color:#EEE; -moz-outline:1px solid #CCC">
+					<label value="&amp;modules.useractionlogger.bo.general.Filter-by-module;" style="padding-top:4px" />
+					<menulist anonid="moduleList" oncommand="moduleChanged()">
+						<menupopup anonid="moduleListItems">
+							<menuitem value="" label="&amp;modules.useractionlogger.bo.general.All-modules;" />
+						</menupopup>
+					</menulist>
+					<label value="&amp;modules.useractionlogger.bo.general.Filter-by-action;" style="padding-top:4px;padding-left:10px" />
+					<menulist anonid="actionList" oncommand="actionChanged()">
+						<menupopup anonid="actionListItems">
+							<menuitem value="" label="&amp;modules.useractionlogger.bo.general.All-action;" />
+						</menupopup>
+					</menulist>
+					<label value="&amp;modules.useractionlogger.bo.general.Filter-by-user;" style="padding-top:4px;padding-left:10px" />
+					<menulist anonid="userList" oncommand="filterChanged()">
+						<menupopup anonid="userListItems">
+							<menuitem value="" label="&amp;modules.useractionlogger.bo.general.All-user;" />
+						</menupopup>
+					</menulist>
+					<toolbarbutton label="&amp;modules.useractionlogger.bo.general.Refresh-result;" oncommand="filterChanged()" image="{HttpHost}/icons/small/check.png"/>
+					<spacer flex="1" />
+				</toolbar>
+			</toolbox>
+			<xbl:children />
+		</xbl:content>
+	</binding>
+</bindings>

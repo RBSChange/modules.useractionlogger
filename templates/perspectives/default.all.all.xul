@@ -1,0 +1,6 @@
+<vbox flex="1">
+	<wuseractionoptions anonid="useractionoptions" />
+	<wuseractionresults anonid="useractionresults" flex="1"/>
+	<deck anonid="mainViewDeck" collapsed="true">	
+	</deck>
+</vbox>

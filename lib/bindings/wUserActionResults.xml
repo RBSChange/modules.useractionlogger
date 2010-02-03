@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bindings xmlns="http://www.mozilla.org/xbl"
+	xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<binding id="wUserActionResults" extends="widgets.wWidget#wWidget">
+		<handlers>
+			<handler event="contextmenu" phase="capturing"><![CDATA[
+				event.preventDefault();
+				event.stopPropagation();
+			]]></handler>
+			
+			<handler event="click" clickcount="1"><![CDATA[
+			    var tn = event.originalTarget.tagName;	    
+			    if (tn == "treecol")
+			    {
+			        this.handleSort(event.originalTarget);
+			        return;
+			    }
+			]]></handler>
+		</handlers>
+
+		<implementation>
+			<field name="filterParam">null</field>
+			<field name="sortOnColId">'dateTime'</field>
+			<field name="pageSize">30</field>
+			<field name="pageIndex">0</field>
+			<field name="pageCount">0</field>
+			
+			<constructor>
+			<![CDATA[
+				
+			]]></constructor>
+				
+			<method name="getFilterParam">
+				<body><![CDATA[	
+				if (this.filterParam == null) 
+				{
+					this.filterParam = {"module": null, "action": null, "user": null};
+				}
+				return this.filterParam;
+				]]></body>
+			</method>			
+				
+			<method name="refresh">
+				<parameter name="filterParam" />
+				<body><![CDATA[	
+				try
+				{
+					if (filterParam != null) 
+					{
+						this.filterParam = filterParam;
+						this.pageIndex = 0;
+					}
+					this.sendRequest();
+				}
+				catch (e)
+				{
+					wCore.error('wUserActionResults.refresh', [filterParam], e);
+				}
+				]]></body>
+			</method>
+									
+			<method name="sendRequest">
+				<body><![CDATA[
+					var treecol = this.getElementById(this.sortOnColId);
+					var sortOnField = treecol.getAttribute("sortonfield");
+					var sortDirection = (treecol.getAttribute("sortDirection") == 'descending') ? 'DESC' : 'ASC';
+					var filterParam = this.getFilterParam();
+					
+					var parameters = {
+						modulefilter: filterParam.module,
+						actionfilter: filterParam.action, 
+						userfilter: filterParam.user, 
+						sortonfield: sortOnField,
+						sortdirection: sortDirection,
+						pagesize: this.pageSize,
+						pageindex: this.pageIndex
+					}
+					var results = this.getController().executeJSON('useractionlogger', 'GetUserActionList', parameters, true)[0];
+					this.updateResults(results);
+				]]></body>
+			</method>
+		
+			
+			<method name="updateResults">
+				<parameter name="results" />
+				<body><![CDATA[					
+					this.reset();
+					var treechildren = this.getElementById("tree");
+					var entries = results.entries;
+					for(var i=0; i< entries.length; i++)
+					{
+						treechildren.appendChild(this.buildTreeItemFromEntry(entries[i]));
+					}
+					this.updateNavigationToolbar(results.header);
+				]]></body>
+			</method>
+			
+			<method name="updateNavigationToolbar">
+				<parameter name="header" />
+				<body><![CDATA[
+					this.pageIndex = header.pageindex;
+					var resultlabel = this.getElementById("navigationresult");
+
+					if (header.count == 0)
+					{
+						this.getElementById("navigationtb").setAttribute('collapsed', 'true');
+						resultlabel.setAttribute('value', "&amp;modules.useractionlogger.bo.general.No-result;");
+					}
+					else
+					{
+						this.getElementById("navigationtb").removeAttribute('collapsed');
+						resultlabel.setAttribute('value', header.count + " &amp;modules.useractionlogger.bo.general.Search-result-count;");
+					}
+					var navIndex = this.getElementById('navigationindex');
+					var nbPage = Math.ceil(header.count / this.pageSize);
+					this.pageCount = nbPage;
+					this.getElementById('navigationtotal').setAttribute("value", nbPage);
+					
+					var currentPage = header.pageindex + 1;
+					navIndex.removeAllItems();
+					for (var i = 1; i <= nbPage; i++) {navIndex.appendItem(i, i)}
+					navIndex.value = currentPage;
+					
+					var toFirst = this.getElementById('navigationbegin');
+					var toBack = this.getElementById('navigationback');
+					var toNext = this.getElementById('navigationnext');
+					var toLast = this.getElementById('navigationend');
+					
+					if (nbPage <= 1)
+					{
+						navIndex.setAttribute('disabled', 'true');
+					} 
+					else
+					{
+						navIndex.removeAttribute('disabled');
+					}
+					if (currentPage > 1)
+					{
+						toFirst.removeAttribute('disabled');
+						toBack.removeAttribute('disabled');	
+					}
+					else
+					{
+						toFirst.setAttribute('disabled', 'true');
+						toBack.setAttribute('disabled', 'true');						
+					}
+					
+					if (currentPage < nbPage)
+					{
+						toNext.removeAttribute('disabled');
+						toLast.removeAttribute('disabled');													
+					}
+					else
+					{
+						toNext.setAttribute('disabled', 'true');
+						toLast.setAttribute('disabled', 'true');						
+					}			
+				]]></body>								
+			</method>	
+			
+			<method name="setPageIndex">
+				<parameter name="newIndex" />
+				<body><![CDATA[
+					if (newIndex != this.pageIndex)
+					{
+						this.pageIndex = newIndex;
+						this.refresh();
+					}		
+				]]></body>								
+			</method>					
+			
+			<method name="navigateBegin">
+				<body><![CDATA[
+					this.setPageIndex(0);
+				]]></body>								
+			</method>
+		
+			<method name="navigateBack">
+				<body><![CDATA[
+					var newIndex = this.pageIndex - 1;
+					if (newIndex >= 0) {this.setPageIndex(newIndex);}
+				]]></body>								
+			</method>	
+
+			<method name="navigateNext">
+				<body><![CDATA[
+					var newIndex = this.pageIndex + 1;
+					if (newIndex < this.pageCount) {this.setPageIndex(newIndex);}
+				]]></body>								
+			</method>
+			
+			<method name="navigateEnd">
+				<body><![CDATA[
+					this.setPageIndex(this.pageCount - 1);
+				]]></body>								
+			</method>
+			
+			<method name="navigateSelect">
+				<body><![CDATA[
+					var newIndex = parseInt(this.getElementById('navigationindex').value) - 1;
+					if (newIndex >= 0 && newIndex < this.pageCount)
+					{
+						this.setPageIndex(newIndex);
+					}
+				]]></body>								
+			</method>
+				
+			<method name="buildTreeItemFromEntry">
+				<parameter name="entry" />
+				<body><![CDATA[
+						//wCore.debug('wUserActionResults.buildTreeItemFromEntry');
+						
+						var item = document.createElement("treeitem");
+						item.setAttribute("documentId", entry[3] ? entry[4] : "");
+						var row = document.createElement("treerow");
+						
+						// activedocument
+						var cell = document.createElement("treecell");
+						cell.setAttribute("properties", entry[3] ? "publicated" : "deleted");
+						row.appendChild(cell);
+						
+						//dateTime 
+						var cell = document.createElement("treecell");
+						cell.setAttribute("label", entry[0]);
+						row.appendChild(cell);
+						
+						// userName
+						var cell = document.createElement("treecell");
+						cell.setAttribute("label", entry[1]);
+						row.appendChild(cell);
+						
+						// description
+						var cell = document.createElement("treecell");
+						cell.setAttribute("label", entry[2]);
+						row.appendChild(cell);
+						
+						item.appendChild(row);				
+						return item;
+				]]></body>
+			</method>
+
+			<method name="reset">
+				<body><![CDATA[
+					$(this.getElementById("tree")).empty();
+				]]></body>
+			</method>
+			
+			<method name="hideColumns">
+				<parameter name="colArray" />
+				<body><![CDATA[
+					for (var i = 0 ; i < colArray.length; i++)
+					{
+						if ('columnPicker' == colArray[i])
+						{
+							this.getElementById('resultTree').setAttribute("hidecolumnpicker", "true");
+						}
+						if (this.getElementById(colArray[i]) != undefined)
+						{
+							this.getElementById(colArray[i]).setAttribute("collapsed", "true");
+						}
+					}
+				]]></body>
+			</method>
+			
+			<method name="handleSort">
+				<parameter name="treecol" />
+				<body><![CDATA[
+					if (!treecol.hasAttribute("sortonfield"))
+					{
+						return;
+					}
+					if (treecol == this.getElementById(this.sortOnColId))
+					{
+						if (treecol.getAttribute("sortDirection") == 'ascending')
+						{
+							treecol.setAttribute("sortDirection", 'descending');
+						}
+						else
+						{
+							treecol.setAttribute("sortDirection", 'ascending');
+						}
+					}
+					else
+					{
+						this.getElementById(this.sortOnColId).removeAttribute("sortDirection");
+						this.sortOnColId = treecol.getAttribute("anonid");
+						treecol.setAttribute("sortDirection", 'ascending');
+					}
+					this.refresh();
+				]]></body>
+			</method>
+			
+		</implementation>
+		<xbl:content xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" xmlns:xbl="http://www.mozilla.org/xbl">
+			<vbox flex="1">
+				<toolbar anonid="navigationtb" orient="horizontal" dir="normal" class="change-toolbar" collapsed="true">
+					<label anonid="navigationresult" value="" style="padding-top:4px;" />
+					<spacer flex="1" />
+					<toolbarbutton anonid="navigationbegin" disabled="true" oncommand="navigateBegin()"
+						image="{HttpHost}/icons/small/shadow/navigate_beginning.png"
+						tooltiptext="&amp;modules.uixul.bo.general.Navigate-begin;"/>
+					<toolbarbutton anonid="navigationback" disabled="true" oncommand="navigateBack()"
+						image="{HttpHost}/icons/small/shadow/navigate_left.png"
+						tooltiptext="&amp;modules.uixul.bo.general.Navigate-back;" />
+					<hbox align="center">
+
+						<label value="&amp;modules.uixul.bo.general.Page;" />
+						<menulist anonid="navigationindex" disabled="true" oncommand="navigateSelect()"
+							sizetopopup="none" width="50" height="22">
+							<menupopup />
+						</menulist>
+						<label value="&amp;modules.uixul.bo.general.out-of;" />
+						<label anonid="navigationtotal" value="0" />
+					</hbox>
+					<toolbarbutton anonid="navigationnext" disabled="true" oncommand="navigateNext()"
+						image="{HttpHost}/icons/small/shadow/navigate_right.png"
+						tooltiptext="&amp;modules.uixul.bo.general.Navigate-next;" />
+					<toolbarbutton anonid="navigationend" disabled="true" oncommand="navigateEnd()"
+						image="{HttpHost}/icons/small/shadow/navigate_end.png"
+						tooltiptext="&amp;modules.uixul.bo.general.Navigate-end;" />
+					<spacer flex="1" />
+				</toolbar>
+	
+				<tree anonid="resultTree" flex="1" xbl:inherits="seltype">
+					<treecols anonid="treecols" style="min-height:24px">
+					   <treecol anonid="activedocument" class="treecol-image" label="&amp;modules.useractionlogger.bo.general.Actif;" 
+								src="{HttpHost}/icons/small/eyeglasses.png"
+								tooltiptext="&amp;modules.useractionlogger.bo.general.Actif-tooltip;"
+								style="padding-right: 5px;" />
+						<treecol sortonfield="date" flex="1" anonid="dateTime" label="&amp;modules.useractionlogger.bo.general.Date;" sortDirection="descending" />
+						<treecol sortonfield="user" flex="1" anonid="userName" label="&amp;modules.useractionlogger.bo.general.User;" />
+						<treecol anonid="description" flex="10"  label="&amp;modules.useractionlogger.bo.general.Description;" />
+					</treecols>
+					<treechildren anonid="tree" />
+				</tree>
+			</vbox>
+		</xbl:content>
+	</binding>
+</bindings>
