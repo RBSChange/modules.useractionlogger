@@ -297,10 +297,10 @@
 					<label anonid="navigationresult" value="" style="padding-top:4px;" />
 					<spacer flex="1" />
 					<toolbarbutton anonid="navigationbegin" disabled="true" oncommand="navigateBegin()"
-						image="{HttpHost}/icons/small/shadow/navigate_beginning.png"
+						image="{IconsBase}/small/shadow/navigate_beginning.png"
 						tooltiptext="&amp;modules.uixul.bo.general.Navigate-begin;"/>
 					<toolbarbutton anonid="navigationback" disabled="true" oncommand="navigateBack()"
-						image="{HttpHost}/icons/small/shadow/navigate_left.png"
+						image="{IconsBase}/small/shadow/navigate_left.png"
 						tooltiptext="&amp;modules.uixul.bo.general.Navigate-back;" />
 					<hbox align="center">
 
@@ -313,10 +313,10 @@
 						<label anonid="navigationtotal" value="0" />
 					</hbox>
 					<toolbarbutton anonid="navigationnext" disabled="true" oncommand="navigateNext()"
-						image="{HttpHost}/icons/small/shadow/navigate_right.png"
+						image="{IconsBase}/small/shadow/navigate_right.png"
 						tooltiptext="&amp;modules.uixul.bo.general.Navigate-next;" />
 					<toolbarbutton anonid="navigationend" disabled="true" oncommand="navigateEnd()"
-						image="{HttpHost}/icons/small/shadow/navigate_end.png"
+						image="{IconsBase}/small/shadow/navigate_end.png"
 						tooltiptext="&amp;modules.uixul.bo.general.Navigate-end;" />
 					<spacer flex="1" />
 				</toolbar>
@@ -324,7 +324,7 @@
 				<tree anonid="resultTree" flex="1" xbl:inherits="seltype">
 					<treecols anonid="treecols" style="min-height:24px">
 					   <treecol anonid="activedocument" class="treecol-image" label="&amp;modules.useractionlogger.bo.general.Actif;" 
-								src="{HttpHost}/icons/small/eyeglasses.png"
+								src="{IconsBase}/small/eyeglasses.png"
 								tooltiptext="&amp;modules.useractionlogger.bo.general.Actif-tooltip;"
 								style="padding-right: 5px;" />
 						<treecol sortonfield="date" flex="1" anonid="dateTime" label="&amp;modules.useractionlogger.bo.general.Date;" sortDirection="descending" />

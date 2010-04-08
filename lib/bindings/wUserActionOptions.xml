@@ -166,7 +166,7 @@
 							<menuitem value="" label="&amp;modules.useractionlogger.bo.general.All-user;" />
 						</menupopup>
 					</menulist>
-					<toolbarbutton label="&amp;modules.useractionlogger.bo.general.Refresh-result;" oncommand="filterChanged()" image="{HttpHost}/icons/small/check.png"/>
+					<toolbarbutton label="&amp;modules.useractionlogger.bo.general.Refresh-result;" oncommand="filterChanged()" image="{IconsBase}/small/check.png"/>
 					<spacer flex="1" />
 				</toolbar>
 			</toolbox>
