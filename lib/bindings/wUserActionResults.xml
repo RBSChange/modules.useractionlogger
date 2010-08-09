@@ -241,7 +241,8 @@
 
 			<method name="reset">
 				<body><![CDATA[
-					$(this.getElementById("tree")).empty();
+					var tree = this.getElementById("tree");
+					while (tree.lastChild) {tree.removeChild(tree.lastChild);}
 				]]></body>
 			</method>
 			
