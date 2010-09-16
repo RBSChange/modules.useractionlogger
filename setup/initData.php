@@ -7,17 +7,7 @@ class useractionlogger_Setup extends object_InitDataSetup
 	public function install()
 	{
 		$this->executeModuleScript('init.xml');
-		$packages = ModuleService::getInstance()->getModules();
-		foreach ($packages as $packageName) 
-		{
-			$path = FileResolver::getInstance()->setPackageName($packageName)->setDirectory('setup')->getPath('useractionlogger.xml');
-			if ($path !== null)
-			{
-				$this->log("Import user action log for package : $packageName");
-				$scriptReader = import_ScriptReader::getInstance();
-				$scriptReader->execute($path);
-			}
-		}
+		f_util_System::execChangeCommand('useractionlogger.import-actions');
 	}
 
 	/**
