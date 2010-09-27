@@ -23,12 +23,13 @@ class useractionlogger_ModuleService extends ModuleBaseService
 	}
 				
 	/**
+	 * @param users_persistentdocument_user
 	 * @param String $actionName
 	 * @param f_persistentdocument_PersistentDocument $document
 	 * @param array $info
 	 * @param String $moduleName
 	 */
-	public function addCurrentUserDocumentEntry($actionName, $document, $info, $moduleName)
+	public function addUserDocumentEntry($user, $actionName, $document, $info, $moduleName)
 	{
 		$mask = $this->getActionLabelMask($moduleName, $actionName);
 		if ($mask === null && !Framework::inDevelopmentMode()) 
@@ -36,15 +37,19 @@ class useractionlogger_ModuleService extends ModuleBaseService
 			return null;
 		}
 	
-		$user = users_UserService::getInstance()->getCurrentUser();
-		if ($user === null)
+		if ($user instanceof users_persistentdocument_user)
 		{
-			return null;
+			$userId = $user->getId();
+			$userFullname = $user->getFullname();
 		}
-		$userId = $user->getId();
+		else 
+		{
+			$userId = -1;
+			$userFullname = 'System';
+		}
 		
 		if (!is_array($info)) {$info = array();}
-		$info['username'] = $user->getFullname();
+		$info['username'] = $userFullname;
 		
 		if ($document !== null)
 		{
@@ -108,8 +113,25 @@ class useractionlogger_ModuleService extends ModuleBaseService
 	}
 	
 	/**
-	 * Enter description here...
-	 *
+	 * @param String $actionName
+	 * @param f_persistentdocument_PersistentDocument $document
+	 * @param array $info
+	 * @param String $moduleName
+	 */
+	public function addCurrentUserDocumentEntry($actionName, $document, $info, $moduleName)
+	{
+		$user = users_UserService::getInstance()->getCurrentUser();
+		if ($user === null)
+		{
+			return null;
+		}
+		else
+		{
+			return $this->addUserDocumentEntry($user, $actionName, $document, $info, $moduleName);
+		}
+	}
+	
+	/**
 	 * @param String $moduleName
 	 * @param String $codeName
 	 * @return String | null
@@ -123,7 +145,6 @@ class useractionlogger_ModuleService extends ModuleBaseService
 		}
 		return null;
 	}
-	
 	
 	/**
 	 * @param String $actionName
@@ -289,15 +310,6 @@ class useractionlogger_ModuleService extends ModuleBaseService
 		}
 		return $result;		
 	}
-	
-	/**
-	 * @param Integer $documentId
-	 * @return f_persistentdocument_PersistentTreeNode
-	 */
-//	public function getParentNodeForPermissions($documentId)
-//	{
-//		// Define this method to handle permissions on a virtual tree node. Example available in list module.
-//	}
 }
 
 
