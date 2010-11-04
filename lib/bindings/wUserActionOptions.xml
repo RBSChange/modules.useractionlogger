@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bindings xmlns="http://www.mozilla.org/xbl" xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-	<binding id="wUserActionOptions" extends="widgets.wWidget#wWidget">
+	<binding id="wUserActionOptions">
 		<implementation>
 			<constructor><![CDATA[
-				var list = this.getElementById("moduleListItems");
+				// find the parent module object
+				var parent = this;
+				while (parent && this._moduleElement == null)
+				{
+					if (parent.tagName && parent.tagName == 'wmodule')
+					{
+						this._moduleElement = parent;
+					}
+					parent = parent.parentNode;
+				}
+			
+				var list = this.getElementByAnonid("moduleListItems");
 				var parameters = {filtername: 'module'}
-				var results = this.getController().executeJSON('useractionlogger', 'GetFilterValues', parameters);
+				var results = wCore.executeJSON('useractionlogger', 'GetFilterValues', parameters);
 				for (var i = 0; i < results.length; i++)
 				{
 					var item = document.createElement("menuitem");
@@ -14,9 +25,9 @@
 					list.appendChild(item);
 				}
 				
-				list = this.getElementById("actionListItems");
+				list = this.getElementByAnonid("actionListItems");
 				parameters = {filtername: 'action'}
-				results = this.getController().executeJSON('useractionlogger', 'GetFilterValues', parameters);
+				results = wCore.executeJSON('useractionlogger', 'GetFilterValues', parameters);
 				for (var i = 0; i < results.length; i++)
 				{
 					var item = document.createElement("menuitem");
@@ -26,9 +37,9 @@
 					list.appendChild(item);
 				}	
 				
-				list = this.getElementById("userListItems");
+				list = this.getElementByAnonid("userListItems");
 				parameters = {filtername: 'user'}
-				results = this.getController().executeJSON('useractionlogger', 'GetFilterValues', parameters);
+				results = wCore.executeJSON('useractionlogger', 'GetFilterValues', parameters);
 				for (var i = 0; i < results.length; i++)
 				{
 					var item = document.createElement("menuitem");
@@ -38,12 +49,25 @@
 				}
 			]]></constructor>
 
+			<method name="getModule">
+				<body><![CDATA[
+					return this._moduleElement;
+				]]></body>
+			</method>
+
+			<method name="getElementByAnonid">
+				<parameter name="id" />
+				<body><![CDATA[
+                    return document.getAnonymousElementByAttribute(this, "anonid", id);
+                ]]></body>
+			</method>
+			
 			<method name="filterChanged">
 				<body><![CDATA[
 					this.getModule().onFilterChanged(this.getFiltersParameters());
 				]]></body>
 			</method>
-			
+						
 			<method name="getFiltersParameters">
 				<body><![CDATA[
 					var result = {};
@@ -56,7 +80,7 @@
 			
 			<method name="getSelectedModule">
 				<body><![CDATA[
-					var moduleList = this.getElementById("moduleList");
+					var moduleList = this.getElementByAnonid("moduleList");
 					if (moduleList.selectedItem)
 					{
 						var val = moduleList.selectedItem.value;
@@ -71,7 +95,7 @@
 
 			<method name="getSelectedAction">
 				<body><![CDATA[
-					var actionList = this.getElementById("actionList");
+					var actionList = this.getElementByAnonid("actionList");
 					if (actionList.selectedItem)
 					{
 						var val = actionList.selectedItem.value;
@@ -86,7 +110,7 @@
 			
 			<method name="getSelectedUser">
 				<body><![CDATA[
-					var userList = this.getElementById("userList");
+					var userList = this.getElementByAnonid("userList");
 					if (userList.selectedItem)
 					{
 						var val = userList.selectedItem.value;
@@ -101,7 +125,7 @@
 			
 			<method name="moduleChanged">
 				<body><![CDATA[
-					var actionList = this.getElementById("actionList");
+					var actionList = this.getElementByAnonid("actionList");
 					var moduleName = this.getSelectedModule();
 					var items = actionList.getElementsByTagName('menuitem');
 					for (var i=0; i < items.length; i++)

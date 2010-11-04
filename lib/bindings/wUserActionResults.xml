@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bindings xmlns="http://www.mozilla.org/xbl"
-	xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-	<binding id="wUserActionResults" extends="widgets.wWidget#wWidget">
+<bindings xmlns="http://www.mozilla.org/xbl" xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<binding id="wUserActionResults">
 		<handlers>
 			<handler event="contextmenu" phase="capturing"><![CDATA[
 				event.preventDefault();
@@ -29,7 +28,14 @@
 			<![CDATA[
 				
 			]]></constructor>
-				
+
+			<method name="getElementByAnonid">
+				<parameter name="id" />
+				<body><![CDATA[
+                    return document.getAnonymousElementByAttribute(this, "anonid", id);
+                ]]></body>
+			</method>
+			
 			<method name="getFilterParam">
 				<body><![CDATA[	
 				if (this.filterParam == null) 
@@ -61,7 +67,7 @@
 									
 			<method name="sendRequest">
 				<body><![CDATA[
-					var treecol = this.getElementById(this.sortOnColId);
+					var treecol = this.getElementByAnonid(this.sortOnColId);
 					var sortOnField = treecol.getAttribute("sortonfield");
 					var sortDirection = (treecol.getAttribute("sortDirection") == 'descending') ? 'DESC' : 'ASC';
 					var filterParam = this.getFilterParam();
@@ -75,7 +81,7 @@
 						pagesize: this.pageSize,
 						pageindex: this.pageIndex
 					}
-					var results = this.getController().executeJSON('useractionlogger', 'GetUserActionList', parameters, true)[0];
+					var results = wCore.executeJSON('useractionlogger', 'GetUserActionList', parameters, null, true)[0];
 					this.updateResults(results);
 				]]></body>
 			</method>
@@ -85,7 +91,7 @@
 				<parameter name="results" />
 				<body><![CDATA[					
 					this.reset();
-					var treechildren = this.getElementById("tree");
+					var treechildren = this.getElementByAnonid("tree");
 					var entries = results.entries;
 					for(var i=0; i< entries.length; i++)
 					{
@@ -99,32 +105,32 @@
 				<parameter name="header" />
 				<body><![CDATA[
 					this.pageIndex = header.pageindex;
-					var resultlabel = this.getElementById("navigationresult");
+					var resultlabel = this.getElementByAnonid("navigationresult");
 
 					if (header.count == 0)
 					{
-						this.getElementById("navigationtb").setAttribute('collapsed', 'true');
+						this.getElementByAnonid("navigationtb").setAttribute('collapsed', 'true');
 						resultlabel.setAttribute('value', "&amp;modules.useractionlogger.bo.general.No-result;");
 					}
 					else
 					{
-						this.getElementById("navigationtb").removeAttribute('collapsed');
+						this.getElementByAnonid("navigationtb").removeAttribute('collapsed');
 						resultlabel.setAttribute('value', header.count + " &amp;modules.useractionlogger.bo.general.Search-result-count;");
 					}
-					var navIndex = this.getElementById('navigationindex');
+					var navIndex = this.getElementByAnonid('navigationindex');
 					var nbPage = Math.ceil(header.count / this.pageSize);
 					this.pageCount = nbPage;
-					this.getElementById('navigationtotal').setAttribute("value", nbPage);
+					this.getElementByAnonid('navigationtotal').setAttribute("value", nbPage);
 					
 					var currentPage = header.pageindex + 1;
 					navIndex.removeAllItems();
 					for (var i = 1; i <= nbPage; i++) {navIndex.appendItem(i, i)}
 					navIndex.value = currentPage;
 					
-					var toFirst = this.getElementById('navigationbegin');
-					var toBack = this.getElementById('navigationback');
-					var toNext = this.getElementById('navigationnext');
-					var toLast = this.getElementById('navigationend');
+					var toFirst = this.getElementByAnonid('navigationbegin');
+					var toBack = this.getElementByAnonid('navigationback');
+					var toNext = this.getElementByAnonid('navigationnext');
+					var toLast = this.getElementByAnonid('navigationend');
 					
 					if (nbPage <= 1)
 					{
@@ -197,7 +203,7 @@
 			
 			<method name="navigateSelect">
 				<body><![CDATA[
-					var newIndex = parseInt(this.getElementById('navigationindex').value) - 1;
+					var newIndex = parseInt(this.getElementByAnonid('navigationindex').value) - 1;
 					if (newIndex >= 0 && newIndex < this.pageCount)
 					{
 						this.setPageIndex(newIndex);
@@ -241,7 +247,7 @@
 
 			<method name="reset">
 				<body><![CDATA[
-					var tree = this.getElementById("tree");
+					var tree = this.getElementByAnonid("tree");
 					while (tree.lastChild) {tree.removeChild(tree.lastChild);}
 				]]></body>
 			</method>
@@ -253,11 +259,11 @@
 					{
 						if ('columnPicker' == colArray[i])
 						{
-							this.getElementById('resultTree').setAttribute("hidecolumnpicker", "true");
+							this.getElementByAnonid('resultTree').setAttribute("hidecolumnpicker", "true");
 						}
-						if (this.getElementById(colArray[i]) != undefined)
+						if (this.getElementByAnonid(colArray[i]) != undefined)
 						{
-							this.getElementById(colArray[i]).setAttribute("collapsed", "true");
+							this.getElementByAnonid(colArray[i]).setAttribute("collapsed", "true");
 						}
 					}
 				]]></body>
@@ -270,7 +276,7 @@
 					{
 						return;
 					}
-					if (treecol == this.getElementById(this.sortOnColId))
+					if (treecol == this.getElementByAnonid(this.sortOnColId))
 					{
 						if (treecol.getAttribute("sortDirection") == 'ascending')
 						{
@@ -283,7 +289,7 @@
 					}
 					else
 					{
-						this.getElementById(this.sortOnColId).removeAttribute("sortDirection");
+						this.getElementByAnonid(this.sortOnColId).removeAttribute("sortDirection");
 						this.sortOnColId = treecol.getAttribute("anonid");
 						treecol.setAttribute("sortDirection", 'ascending');
 					}
