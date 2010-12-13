@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i18n baseKey="m.useractionlogger.bo.general" lcid="fr_FR">
+  <key id="module-name">Historique des actions utilisateurs</key>
+  <key id="tree-root-name">Historique des actions utilisateurs</key>
+  <key id="system-folder-name">Historique des actions utilisateurs</key>
+  <key id="filter-by-module">Filtrer par module</key>
+  <key id="all-modules">Tous les modules</key>
+  <key id="filter-by-action">Filtrer par action</key>
+  <key id="all-action">Toutes les actions</key>
+  <key id="filter-by-user">Filtrer par utilisateur</key>
+  <key id="all-user">Tous les utilisateurs</key>
+  <key id="refresh-result">Actualiser</key>
+  <key id="no-result">Pas de résultat</key>
+  <key id="search-result-count">Résultat(s)</key>
+  <key id="actif">Actif</key>
+  <key id="actif-tooltip">Document non supprimé</key>
+  <key id="date">Date</key>
+  <key id="user">Utilisateur</key>
+  <key id="description">Description</key>
+</i18n>

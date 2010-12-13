@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i18n baseKey="m.useractionlogger.document.actiondef" lcid="en_GB">
+  <key id="document-name">actiondef</key>
+  <key id="label">label</key>
+  <key id="modulename">module name</key>
+  <key id="actionname">action name</key>
+</i18n>
