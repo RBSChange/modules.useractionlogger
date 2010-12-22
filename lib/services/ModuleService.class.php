@@ -155,10 +155,10 @@ class useractionlogger_ModuleService extends ModuleBaseService
 	private function generateDefaultActionDef($actionName, $info, $moduleName)
 	{
 		$defFilePath = f_util_FileUtils::buildWebeditPath('modules', $moduleName, 'setup', 'useractionlogger.xml');
-		Framework::debug(__METHOD__ . "($actionName, $moduleName, $defFilePath)");
 		if (is_writable(dirname($defFilePath)))
 		{
-			Framework::debug(__METHOD__ . " - WRITING");
+			Framework::info(__METHOD__ . "($actionName, $moduleName, $defFilePath)");
+			
 			$defdoc = new DOMDocument('1.0', 'UTF-8');
 			$defdoc->preserveWhiteSpace = false;
 			$defdoc->formatOutput = true;
@@ -179,7 +179,8 @@ class useractionlogger_ModuleService extends ModuleBaseService
 			$actiondef = $defdoc->createElement('actiondef');
 			$actiondef->setAttribute('modulename', $moduleName);
 			$actiondef->setAttribute('actionname', $actionName);
-			$localkey = 'modules.' . $moduleName . '.bo.useractionlogger.' . str_replace('.', '-', $actionName);
+			$localkey = 'm.' . $moduleName . '.bo.useractionlogger.' . str_replace('.', '-', $actionName);
+			
 			$label = $actionName;
 			foreach (array_keys($info) as $key) 
 			{
@@ -190,36 +191,17 @@ class useractionlogger_ModuleService extends ModuleBaseService
 			$defdoc->documentElement->appendChild($actiondef);	
 			$defdoc->save($defFilePath);
 			
-			$localFilePath = f_util_FileUtils::buildWebeditPath('modules', $moduleName, 'locale', 'bo', 'useractionlogger.xml');			
-			$localdoc = new DOMDocument('1.0', 'UTF-8');
-			$defdoc->preserveWhiteSpace = false;
-			$defdoc->formatOutput = true;
+			$ls = LocaleService::getInstance();
+			$baseKey = 'm.' . $moduleName . '.bo.useractionlogger';
+			$lcid = $ls->getLCID('fr');
+			$id = strtolower(str_replace('.', '-', $actionName));
 			
-			if (file_exists($localFilePath))
-			{
-				$localdoc->load($localFilePath);
-			}
-			else
-			{
-				$localdoc->loadXML('<?xml version="1.0" encoding="utf-8"?><localization></localization>');
-			}
+			$keysInfos = array();
+			$keysInfos[$lcid][$id]  = $label;
 			
-			$entityId = str_replace('.', '-', $actionName);
-			$localdef = $localdoc->createElement('entity');
-			$localdef->setAttribute('id', $entityId);
-			$frloc = $localdef->appendChild($localdoc->createElement('locale'));
-			$frloc->setAttribute('lang', 'fr');	
-			$frloc->appendChild($localdoc->createTextNode($label));
-			$localdoc->documentElement->appendChild($localdef);
-			
-			$entityId = 'log-'.$entityId;
-			$localdef = $localdoc->createElement('entity');
-			$localdef->setAttribute('id', $entityId);
-			$frloc = $localdef->appendChild($localdoc->createElement('locale'));
-			$frloc->setAttribute('lang', 'fr');	
-			$frloc->appendChild($localdoc->createTextNode($entityId));
-			$localdoc->documentElement->appendChild($localdef);
-			$localdoc->save($localFilePath);
+			$id = 'log-'.$id;
+			$keysInfos[$lcid][$id] = str_replace('-', ' ', $id);
+			$ls->updatePackage($baseKey, $keysInfos, false, true);
 			
 			$persistDoc = useractionlogger_ActiondefService::getInstance()->getNewDocumentInstance();
 			$persistDoc->setLabel($localkey);
@@ -230,7 +212,7 @@ class useractionlogger_ModuleService extends ModuleBaseService
 		}
 		else
 		{
-			Framework::debug(__METHOD__ . " - READONLY " . dirname($defFilePath));
+			Framework::info(__METHOD__ . " - READONLY " . dirname($defFilePath));
 		}
 		return null;
 	}
