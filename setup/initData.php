@@ -7,7 +7,7 @@ class useractionlogger_Setup extends object_InitDataSetup
 	public function install()
 	{
 		$this->executeModuleScript('init.xml');
-		f_util_System::execChangeCommand('useractionlogger.import-actions');
+		useractionlogger_ModuleService::getInstance()->importAllInitScript();
 	}
 
 	/**

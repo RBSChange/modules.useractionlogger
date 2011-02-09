@@ -48,26 +48,16 @@ class commands_useractionlogger_ImportActions extends commands_AbstractChangeCom
 		$this->message("== Import Actions ==");
 		$this->loadFramework();
 
-		$ls = LocaleService::getInstance();
-		if ( f_util_ArrayUtils::isEmpty($params))
+		if (f_util_ArrayUtils::isEmpty($params))
 		{
-			$params = array();
-			foreach (glob("modules/*/setup/useractionlogger.xml") as $path) 
-			{
-				$module = basename(dirname(dirname($path)));
-				$params[] = $module;
-			}
+			$params = useractionlogger_ModuleService::getInstance()->getModulesWithUserAction();
 		}
 
 		foreach ($params as $module)
 		{
-			$packageName = "modules_".$module;
-			$path = FileResolver::getInstance()->setPackageName($packageName)->setDirectory('setup')->getPath('useractionlogger.xml');
-			if ($path !== null)
+			if (useractionlogger_ModuleService::getInstance()->importInitScript($module))
 			{
-				$this->log("Import user action log for package : $module");
-				$scriptReader = import_ScriptReader::getInstance();
-				$scriptReader->execute($path);
+				$this->log("User action log imported for package : $module");
 			}
 		}
 		

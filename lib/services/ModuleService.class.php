@@ -292,6 +292,50 @@ class useractionlogger_ModuleService extends ModuleBaseService
 		}
 		return $result;		
 	}
+	
+	/**
+	 * @param string $module
+	 * @return boolean
+	 */
+	public function importInitScript($module)
+	{
+		$packageName = "modules_".$module;
+		$path = FileResolver::getInstance()->setPackageName($packageName)
+			->setDirectory('setup')->getPath('useractionlogger.xml');
+		if ($path !== null)
+		{
+			$scriptReader = import_ScriptReader::getInstance();
+			$scriptReader->execute($path);
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * @return string[]
+	 */
+	public function getModulesWithUserAction()
+	{
+		$params = array();
+		foreach (glob(WEBEDIT_HOME . "/modules/*/setup/useractionlogger.xml") as $path) 
+		{
+			$module = basename(dirname(dirname($path)));
+			$params[] = $module;
+		}
+		return $params; 
+	}
+	
+	
+	/**
+	 * 
+	 */
+	public function importAllInitScript()
+	{
+		foreach ($this->getModulesWithUserAction() as $module)
+		{
+			$this->importInitScript($module);
+		}
+	}
 }
 
 
