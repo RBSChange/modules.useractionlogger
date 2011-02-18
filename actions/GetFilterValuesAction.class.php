@@ -62,9 +62,11 @@ class useractionlogger_GetFilterValuesAction extends useractionlogger_Action
 		$moduleNames = $service->getModuleInLog();
 		
 		$moduleList = array();
+		$modifier = array('ucf');
+		$ls = LocaleService::getInstance();
 		foreach ($moduleNames as $moduleName)
 		{		
-			$moduleLocalizedName = f_Locale::translate('&modules.' . $moduleName . '.bo.general.Module-name;');
+			$moduleLocalizedName = $ls->transBO('m.' . $moduleName . '.bo.general.module-name', $modifier);
 			$moduleList[$moduleLocalizedName] = array('id' => $moduleName, 'label' => $moduleLocalizedName);
 		}
 		ksort($moduleList);
@@ -73,17 +75,27 @@ class useractionlogger_GetFilterValuesAction extends useractionlogger_Action
 	
 	private function buildActionList()
 	{
-		$allActions = useractionlogger_ActiondefService::getInstance()->getActionList();
+		$allActions = useractionlogger_ActiondefService::getInstance()->getActionDefIdForName();
 		
 		$service = useractionlogger_ModuleService::getInstance();
 		$actionNames = $service->getActionInLog();
 		
 		$actionList = array();
+		$modifier = array('ucf');
+		$ls = LocaleService::getInstance();
 		foreach ($actionNames as $actionName)
 		{	
-			$moduleName = $allActions[$actionName];
-			$localKey =	'&modules.' . substr($moduleName, 0, strpos($moduleName, ';')) . '.bo.useractionlogger.Log-' . str_replace('.', '-', $actionName) . ';';
-			$actionLabel = f_Locale::translate($localKey);
+			$datas = $allActions[$actionName];
+			$moduleName = $datas['modulename'];
+			if (strpos($datas['label'], '.bo.useractionlogger.'))
+			{
+				$localKey =	str_replace('.bo.useractionlogger.', '.bo.useractionlogger.log-', $datas['label']);
+			}
+			else
+			{
+				$localKey =	'm.' . $moduleName . '.bo.useractionlogger.log-' . str_replace('.', '-', $actionName);
+			}
+			$actionLabel = $ls->transBO($localKey, $modifier);
 			$actionList[$actionLabel] = array('id' => $actionName, 'label' => $actionLabel, 'module' => $moduleName);
 		}
 		ksort($actionList);

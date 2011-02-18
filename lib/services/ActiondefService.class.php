@@ -86,4 +86,20 @@ class useractionlogger_ActiondefService extends f_persistentdocument_DocumentSer
 		}
 		return $actions;		
 	}
+	
+	/**
+	 * @return string[]
+	 */
+	public function getActionDefIdForName()
+	{
+		$rows = $this->createQuery()->setProjection(Projections::groupProperty('modulename', 'modulename'), 
+					Projections::groupProperty('actionname', 'actionname'),
+					Projections::groupProperty('label', 'label'))->find();
+		$actions = array();
+		foreach ($rows as $row) 
+		{
+			$actions[$row['actionname']] = $row;
+		}
+		return $actions;		
+	}
 }
