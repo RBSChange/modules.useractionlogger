@@ -238,7 +238,7 @@ class useractionlogger_ModuleService extends ModuleBaseService
 	 * @param Integer $rowCount
 	 * @param String $sortOnField (date | user)
 	 * @param String $sortDirection (ASC | DESC)
-	 * @return UserActionEntry[]
+	 * @return useractionlogger_Entry[]
 	 */
 	public final function getUserActionEntry($userId, $moduleName, $actionName, $documentId, $rowIndex, $rowCount, $sortOnField, $sortDirection)
 	{
@@ -246,7 +246,7 @@ class useractionlogger_ModuleService extends ModuleBaseService
 		$data = $this->getPersistentProvider()->getUserActionEntry($userId, $moduleName, $actionName, $documentId, $rowIndex, $rowCount, $sortOnField, $sortDirection);
 		foreach ($data as $dataRow) 
 		{
-			$result[] = new UserActionEntry($dataRow);
+			$result[] = new useractionlogger_Entry($dataRow);
 		}
 		return $result;
 	}
@@ -317,7 +317,7 @@ class useractionlogger_ModuleService extends ModuleBaseService
 	public function getModulesWithUserAction()
 	{
 		$params = array();
-		foreach (glob(WEBEDIT_HOME . "/modules/*/setup/useractionlogger.xml") as $path) 
+		foreach (glob(PROJECT_HOME . "/modules/*/setup/useractionlogger.xml") as $path) 
 		{
 			$module = basename(dirname(dirname($path)));
 			$params[] = $module;
@@ -339,7 +339,7 @@ class useractionlogger_ModuleService extends ModuleBaseService
 }
 
 
-class UserActionEntry
+class useractionlogger_Entry
 {
 	private $id;
 	private $dateTime;

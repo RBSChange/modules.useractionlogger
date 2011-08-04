@@ -3,11 +3,11 @@
  * useractionlogger_GetFilterValuesAction
  * @package modules.useractionlogger.actions
  */
-class useractionlogger_GetFilterValuesAction extends useractionlogger_Action
+class useractionlogger_GetFilterValuesAction extends change_Action
 {
 	/**
-	 * @param Context $context
-	 * @param Request $request
+	 * @param change_Context $context
+	 * @param change_Request $request
 	 */
 	public function _execute($context, $request)
 	{
@@ -26,7 +26,7 @@ class useractionlogger_GetFilterValuesAction extends useractionlogger_Action
 		}
 
 		echo JsonService::getInstance()->encode($result);
-		return View::NONE;
+		return change_View::NONE;
 	}
 	
 	private function buildUserList()

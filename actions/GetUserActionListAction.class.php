@@ -3,11 +3,11 @@
  * useractionlogger_GetUserActionListAction
  * @package modules.useractionlogger.actions
  */
-class useractionlogger_GetUserActionListAction extends useractionlogger_Action
+class useractionlogger_GetUserActionListAction extends change_Action
 {
 	/**
-	 * @param Context $context
-	 * @param Request $request
+	 * @param change_Context $context
+	 * @param change_Request $request
 	 */
 	public function _execute($context, $request)
 	{
@@ -39,6 +39,6 @@ class useractionlogger_GetUserActionListAction extends useractionlogger_Action
 		
 		$result['header']['resultcount'] = count($result['entries']);
 		echo JsonService::getInstance()->encode(array($result));
-		return View::NONE;
+		return change_View::NONE;
 	}
 }
