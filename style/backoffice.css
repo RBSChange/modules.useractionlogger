@@ -10,7 +10,3 @@ wuseractionresults treechildren::-moz-tree-row(even, selected){
 wuseractionresults treechildren::-moz-tree-row(odd, selected){
 	background-color: #c0c0e0;
 }
-
-treechildren::-moz-tree-image(modules_useractionlogger_actiondef){
-	list-style-image: url(/changeicons/small/useractionlogger.png);
-}

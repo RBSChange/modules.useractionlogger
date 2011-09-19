@@ -3,7 +3,7 @@
  * commands_useractionlogger_ImportActions
  * @package modules.useractionlogger.command
  */
-class commands_useractionlogger_ImportActions extends commands_AbstractChangeCommand
+class commands_useractionlogger_ImportActions extends c_ChangescriptCommand
 {
 	/**
 	 * @return String
@@ -61,7 +61,7 @@ class commands_useractionlogger_ImportActions extends commands_AbstractChangeCom
 			}
 		}
 		
-		$this->getParent()->executeCommand('clear-webapp-cache');
+		$this->executeCommand('clear-webapp-cache');
 		return $this->quitOk("Actions successfully imported");
 	}
 }
