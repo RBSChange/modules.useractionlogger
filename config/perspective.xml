@@ -42,11 +42,11 @@
 		<toolbarbutton name="edit" />
 	</toolbar>
 	<actions>
-		<action name="delete" permission="Delete" icon="delete2" label="&amp;modules.uixul.bo.actions.Delete;" />
-		<action name="edit" single="true" permission="Load" icon="document_edit" label="&amp;modules.uixul.bo.actions.Edit;" />
-		<action name="translateFrom" single="true" permission="LoadForTranslation" icon="documents_new" label="&amp;modules.uixul.bo.general.translation.Translate-fromEllipsis;" />
-		<action name="openOrderChildren" single="true" permission="Order" icon="document_exchange" label="&amp;modules.uixul.bo.actions.Set-children-order;" />
-		<action name="move" permission="Move" icon="up_down" label="&amp;modules.uixul.bo.actions.Move;" />
-		<action name="openFolder" icon="folder_into" label="&amp;modules.uixul.bo.actions.OpenFolder;" />
+		<action name="delete" permission="Delete" icon="delete2" labeli18n="m.uixul.bo.actions.Delete" />
+		<action name="edit" single="true" permission="Load" icon="document_edit" labeli18n="m.uixul.bo.actions.Edit" />
+		<action name="translateFrom" single="true" permission="LoadForTranslation" icon="documents_new" labeli18n="m.uixul.bo.general.translation.Translate-fromEllipsis" />
+		<action name="openOrderChildren" single="true" permission="Order" icon="document_exchange" labeli18n="m.uixul.bo.actions.Set-children-order" />
+		<action name="move" permission="Move" icon="up_down" labeli18n="m.uixul.bo.actions.Move" />
+		<action name="openFolder" icon="folder_into" labeli18n="m.uixul.bo.actions.OpenFolder" />
 	</actions>
 </perspective>
