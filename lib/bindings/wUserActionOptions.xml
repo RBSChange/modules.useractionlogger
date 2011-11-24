@@ -172,25 +172,25 @@
 			<toolbox anonid="top-toolbox" orient="vertical" dir="normal"
 				flex="1">
 				<toolbar flex="1" style="background-color:#EEE; -moz-outline:1px solid #CCC">
-					<label value="&amp;modules.useractionlogger.bo.general.Filter-by-module;" style="padding-top:4px" />
+					<label value="${trans:m.useractionlogger.bo.general.Filter-by-module,ucf,attr}" style="padding-top:4px" />
 					<menulist anonid="moduleList" oncommand="moduleChanged()">
 						<menupopup anonid="moduleListItems">
-							<menuitem value="" label="&amp;modules.useractionlogger.bo.general.All-modules;" />
+							<menuitem value="" label="${trans:m.useractionlogger.bo.general.All-modules,ucf,attr}" />
 						</menupopup>
 					</menulist>
-					<label value="&amp;modules.useractionlogger.bo.general.Filter-by-action;" style="padding-top:4px;padding-left:10px" />
+					<label value="${trans:m.useractionlogger.bo.general.Filter-by-action,ucf,attr}" style="padding-top:4px;padding-left:10px" />
 					<menulist anonid="actionList" oncommand="actionChanged()">
 						<menupopup anonid="actionListItems">
-							<menuitem value="" label="&amp;modules.useractionlogger.bo.general.All-action;" />
+							<menuitem value="" label="${trans:m.useractionlogger.bo.general.All-action,ucf,attr}" />
 						</menupopup>
 					</menulist>
-					<label value="&amp;modules.useractionlogger.bo.general.Filter-by-user;" style="padding-top:4px;padding-left:10px" />
+					<label value="${trans:m.useractionlogger.bo.general.Filter-by-user,ucf,attr}" style="padding-top:4px;padding-left:10px" />
 					<menulist anonid="userList" oncommand="filterChanged()">
 						<menupopup anonid="userListItems">
-							<menuitem value="" label="&amp;modules.useractionlogger.bo.general.All-user;" />
+							<menuitem value="" label="${trans:m.useractionlogger.bo.general.All-user,ucf,attr}" />
 						</menupopup>
 					</menulist>
-					<toolbarbutton label="&amp;modules.useractionlogger.bo.general.Refresh-result;" oncommand="filterChanged()" image="{IconsBase}/small/check.png"/>
+					<toolbarbutton label="${trans:m.useractionlogger.bo.general.Refresh-result,ucf,attr}" oncommand="filterChanged()" image="{IconsBase}/small/check.png"/>
 					<spacer flex="1" />
 				</toolbar>
 			</toolbox>

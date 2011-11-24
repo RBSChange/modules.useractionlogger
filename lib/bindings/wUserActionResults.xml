@@ -110,12 +110,12 @@
 					if (header.count == 0)
 					{
 						this.getElementByAnonid("navigationtb").setAttribute('collapsed', 'true');
-						resultlabel.setAttribute('value', "&amp;modules.useractionlogger.bo.general.No-result;");
+						resultlabel.setAttribute('value', "${trans:m.useractionlogger.bo.general.No-result,ucf,js}");
 					}
 					else
 					{
 						this.getElementByAnonid("navigationtb").removeAttribute('collapsed');
-						resultlabel.setAttribute('value', header.count + " &amp;modules.useractionlogger.bo.general.Search-result-count;");
+						resultlabel.setAttribute('value', header.count + " ${trans:m.useractionlogger.bo.general.Search-result-count,ucf,js}");
 					}
 					var navIndex = this.getElementByAnonid('navigationindex');
 					var nbPage = Math.ceil(header.count / this.pageSize);
@@ -305,38 +305,38 @@
 					<spacer flex="1" />
 					<toolbarbutton anonid="navigationbegin" disabled="true" oncommand="navigateBegin()"
 						image="{IconsBase}/small/control-begin.png"
-						tooltiptext="&amp;modules.uixul.bo.general.Navigate-begin;"/>
+						tooltiptext="${trans:m.uixul.bo.general.Navigate-begin,ucf,attr}"/>
 					<toolbarbutton anonid="navigationback" disabled="true" oncommand="navigateBack()"
 						image="{IconsBase}/small/control-backward.png"
-						tooltiptext="&amp;modules.uixul.bo.general.Navigate-back;" />
+						tooltiptext="${trans:m.uixul.bo.general.Navigate-back,ucf,attr}" />
 					<hbox align="center">
 
-						<label value="&amp;modules.uixul.bo.general.Page;" />
+						<label value="${trans:m.uixul.bo.general.Page,ucf,attr}" />
 						<menulist anonid="navigationindex" disabled="true" oncommand="navigateSelect()"
 							sizetopopup="none" width="50" height="22">
 							<menupopup />
 						</menulist>
-						<label value="&amp;modules.uixul.bo.general.out-of;" />
+						<label value="${trans:m.uixul.bo.general.out-of,ucf,attr}" />
 						<label anonid="navigationtotal" value="0" />
 					</hbox>
 					<toolbarbutton anonid="navigationnext" disabled="true" oncommand="navigateNext()"
 						image="{IconsBase}/small/control-forward.png"
-						tooltiptext="&amp;modules.uixul.bo.general.Navigate-next;" />
+						tooltiptext="${trans:m.uixul.bo.general.Navigate-next,ucf,attr}" />
 					<toolbarbutton anonid="navigationend" disabled="true" oncommand="navigateEnd()"
 						image="{IconsBase}/small/control-end.png"
-						tooltiptext="&amp;modules.uixul.bo.general.Navigate-end;" />
+						tooltiptext="${trans:m.uixul.bo.general.Navigate-end,ucf,attr}" />
 					<spacer flex="1" />
 				</toolbar>
 	
 				<tree anonid="resultTree" flex="1" xbl:inherits="seltype">
 					<treecols anonid="treecols" style="min-height:24px">
-					   <treecol anonid="activedocument" class="treecol-image" label="&amp;modules.useractionlogger.bo.general.Actif;" 
+					   <treecol anonid="activedocument" class="treecol-image" label="${trans:m.useractionlogger.bo.general.Actif,ucf,attr}" 
 								src="{IconsBase}/small/status-detail.png"
-								tooltiptext="&amp;modules.useractionlogger.bo.general.Actif-tooltip;"
+								tooltiptext="${trans:m.useractionlogger.bo.general.Actif-tooltip,ucf,attr}"
 								style="padding-right: 5px;" />
-						<treecol sortonfield="date" flex="1" anonid="dateTime" label="&amp;modules.useractionlogger.bo.general.Date;" sortDirection="descending" />
-						<treecol sortonfield="user" flex="1" anonid="userName" label="&amp;modules.useractionlogger.bo.general.User;" />
-						<treecol anonid="description" flex="10"  label="&amp;modules.useractionlogger.bo.general.Description;" />
+						<treecol sortonfield="date" flex="1" anonid="dateTime" label="${trans:m.useractionlogger.bo.general.Date,ucf,attr}" sortDirection="descending" />
+						<treecol sortonfield="user" flex="1" anonid="userName" label="${trans:m.useractionlogger.bo.general.User,ucf,attr}" />
+						<treecol anonid="description" flex="10"  label="${trans:m.useractionlogger.bo.general.Description,ucf,attr}" />
 					</treecols>
 					<treechildren anonid="tree" />
 				</tree>
