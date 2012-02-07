@@ -327,7 +327,7 @@ class useractionlogger_ModuleService extends ModuleBaseService
 	
 	
 	/**
-	 * 
+	 * @return void
 	 */
 	public function importAllInitScript()
 	{
@@ -336,114 +336,23 @@ class useractionlogger_ModuleService extends ModuleBaseService
 			$this->importInitScript($module);
 		}
 	}
-}
-
-
-class UserActionEntry
-{
-	private $id;
-	private $dateTime;
-	private $userId;
-	private $documentId;
-	private $moduleName;	
-	private $actionName;
-	private $info;
-	private $documentLinkId;
-	
-	public function __construct($dataRow)
-	{
-		$this->id = intval($dataRow['entry_id']);
-		$this->dateTime = $dataRow['entry_date'];
-		$this->userId = intval($dataRow['user_id']);
-		$this->documentId = intval($dataRow['document_id']);
-		$this->moduleName = $dataRow['module_name'];
-		$this->actionName = $dataRow['action_name'];
-		$this->info = unserialize($dataRow['info']);
-		$this->info['logdescription'] = f_Locale::translateUI('&modules.' . $this->moduleName. '.bo.useractionlogger.' .ucfirst(str_replace('.', '-',$this->actionName)) .';', $this->info);
-		$this->documentLinkId = intval($dataRow['link_id']);
-	}
 	
 	/**
-	 * @return Integer
-	 */	
-	public function getId()
-	{
-		return $this->id;
-	}
-	
-	/**
-	 * @return String
+	 * @return void
 	 */
-	public function getLabel()
+	public function addPurgeLogTask()
 	{
-		return $this->info['logdescription'];
-	}
-	
-	/**
-	 * @return Integer
-	 */
-	public function getUserId()
-	{
-		return $this->userId;
-	}
-	
-	/**
-	 * @return String
-	 */
-	public function getUserName()
-	{
-		return $this->info['username'];
-	}
-	
-	/**
-	 * @return String
-	 */
-	public function getDateTime()
-	{
-		return $this->dateTime;
-	}
-	
-	/**
-	 * @return String
-	 */
-	public function getName()
-	{
-		return $this->actionName;
-	}
-	
-	/**
-	 * @return String
-	 */
-	public function getModuleName()
-	{
-		return $this->moduleName;
-	}
-	
-	/**
-	 * @return Integer
-	 */
-	public function getDocumentId()
-	{
-		return $this->documentId;
-	}
-	
-	/**
-	 * @return String
-	 */
-	public function getDocumentLabel()
-	{
-		if (isset($this->info['documentlabel']))
+		$tasks = task_PlannedtaskService::getInstance()->getBySystemtaskclassname('useractionlogger_PurgeLogTask');
+		if (count($tasks) == 0)
 		{
-			return $this->info['documentlabel'];
+			$task = task_PlannedtaskService::getInstance()->getNewDocumentInstance();
+			$task->setSystemtaskclassname('useractionlogger_PurgeLogTask');
+			$task->setLabel('useractionlogger_PurgeLogTask');
+			$task->setMinute(-1);
+			$task->setHour(-1);
+			$task->setMaxduration(2);
+			
+			$task->save(ModuleService::getInstance()->getSystemFolderId('task', 'useractionlogger'));
 		}
-		return null;
-	}
-	
-	/**
-	 * @return Boolean
-	 */
-	public function hasLinkedDocument()
-	{
-		return $this->documentLinkId > 0;
 	}
 }
