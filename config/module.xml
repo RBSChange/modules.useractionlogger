@@ -7,4 +7,8 @@
 		<usetopic>false</usetopic>
 		<category>admin</category>
 	</module>
+	<project>
+		<!-- Maximum days history of log entries (0 infinite) -->
+		<entry name="maxDaysHistory">0</entry>
+	</project>
 </config>

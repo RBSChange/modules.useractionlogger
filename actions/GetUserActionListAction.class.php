@@ -3,7 +3,7 @@
  * useractionlogger_GetUserActionListAction
  * @package modules.useractionlogger.actions
  */
-class useractionlogger_GetUserActionListAction extends useractionlogger_Action
+class useractionlogger_GetUserActionListAction extends f_action_BaseAction
 {
 	/**
 	 * @param Context $context

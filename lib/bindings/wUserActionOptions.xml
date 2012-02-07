@@ -139,8 +139,7 @@
 							}
 							else
 							{
-								var r = new RegExp(moduleName + ';', 'g')
-								if (r.test(item.getAttribute('wmodule')))
+								if (item.getAttribute('wmodule') == moduleName)
 								{
 									item.removeAttribute('collapsed');
 								}
@@ -172,25 +171,25 @@
 			<toolbox anonid="top-toolbox" orient="vertical" dir="normal"
 				flex="1">
 				<toolbar flex="1" style="background-color:#EEE; -moz-outline:1px solid #CCC">
-					<label value="${transui:m.useractionlogger.bo.general.Filter-by-module,ucf,attr}" style="padding-top:4px" />
+					<label value="${transui:m.useractionlogger.bo.general.filter-by-module,ucf,attr}" style="padding-top:4px" />
 					<menulist anonid="moduleList" oncommand="moduleChanged()">
 						<menupopup anonid="moduleListItems">
-							<menuitem value="" label="${transui:m.useractionlogger.bo.general.All-modules,ucf,attr}" />
+							<menuitem value="" label="${transui:m.useractionlogger.bo.general.all-modules,ucf,attr}" />
 						</menupopup>
 					</menulist>
-					<label value="${transui:m.useractionlogger.bo.general.Filter-by-action,ucf,attr}" style="padding-top:4px;padding-left:10px" />
+					<label value="${transui:m.useractionlogger.bo.general.filter-by-action,ucf,attr}" style="padding-top:4px;padding-left:10px" />
 					<menulist anonid="actionList" oncommand="actionChanged()">
 						<menupopup anonid="actionListItems">
-							<menuitem value="" label="${transui:m.useractionlogger.bo.general.All-action,ucf,attr}" />
+							<menuitem value="" label="${transui:m.useractionlogger.bo.general.all-action,ucf,attr}" />
 						</menupopup>
 					</menulist>
-					<label value="${transui:m.useractionlogger.bo.general.Filter-by-user,ucf,attr}" style="padding-top:4px;padding-left:10px" />
+					<label value="${transui:m.useractionlogger.bo.general.filter-by-user,ucf,attr}" style="padding-top:4px;padding-left:10px" />
 					<menulist anonid="userList" oncommand="filterChanged()">
 						<menupopup anonid="userListItems">
-							<menuitem value="" label="${transui:m.useractionlogger.bo.general.All-user,ucf,attr}" />
+							<menuitem value="" label="${transui:m.useractionlogger.bo.general.all-user,ucf,attr}" />
 						</menupopup>
 					</menulist>
-					<toolbarbutton label="${transui:m.useractionlogger.bo.general.Refresh-result,ucf,attr}" oncommand="filterChanged()" image="{IconsBase}/small/check.png"/>
+					<toolbarbutton label="${transui:m.useractionlogger.bo.general.refresh-result,ucf,attr}" oncommand="filterChanged()" image="{IconsBase}/small/check.png"/>
 					<spacer flex="1" />
 				</toolbar>
 			</toolbox>

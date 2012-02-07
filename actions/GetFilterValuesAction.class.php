@@ -3,7 +3,7 @@
  * useractionlogger_GetFilterValuesAction
  * @package modules.useractionlogger.actions
  */
-class useractionlogger_GetFilterValuesAction extends useractionlogger_Action
+class useractionlogger_GetFilterValuesAction extends f_action_BaseAction
 {
 	/**
 	 * @param Context $context

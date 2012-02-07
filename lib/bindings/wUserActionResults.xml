@@ -110,7 +110,7 @@
 					if (header.count == 0)
 					{
 						this.getElementByAnonid("navigationtb").setAttribute('collapsed', 'true');
-						resultlabel.setAttribute('value', "${transui:m.useractionlogger.bo.general.No-result,ucf,js}");
+						resultlabel.setAttribute('value', "${transui:m.useractionlogger.bo.general.no-result,ucf,js}");
 					}
 					else
 					{
@@ -305,10 +305,10 @@
 					<spacer flex="1" />
 					<toolbarbutton anonid="navigationbegin" disabled="true" oncommand="navigateBegin()"
 						image="{IconsBase}/small/control-begin.png"
-						tooltiptext="${transui:m.uixul.bo.general.Navigate-begin,ucf,attr}"/>
+						tooltiptext="${transui:m.uixul.bo.general.navigate-begin,ucf,attr}"/>
 					<toolbarbutton anonid="navigationback" disabled="true" oncommand="navigateBack()"
 						image="{IconsBase}/small/control-backward.png"
-						tooltiptext="${transui:m.uixul.bo.general.Navigate-back,ucf,attr}" />
+						tooltiptext="${transui:m.uixul.bo.general.navigate-back,ucf,attr}" />
 					<hbox align="center">
 
 						<label value="${transui:m.uixul.bo.general.Page,ucf,attr}" />
@@ -321,22 +321,22 @@
 					</hbox>
 					<toolbarbutton anonid="navigationnext" disabled="true" oncommand="navigateNext()"
 						image="{IconsBase}/small/control-forward.png"
-						tooltiptext="${transui:m.uixul.bo.general.Navigate-next,ucf,attr}" />
+						tooltiptext="${transui:m.uixul.bo.general.navigate-next,ucf,attr}" />
 					<toolbarbutton anonid="navigationend" disabled="true" oncommand="navigateEnd()"
 						image="{IconsBase}/small/control-end.png"
-						tooltiptext="${transui:m.uixul.bo.general.Navigate-end,ucf,attr}" />
+						tooltiptext="${transui:m.uixul.bo.general.navigate-end,ucf,attr}" />
 					<spacer flex="1" />
 				</toolbar>
 	
 				<tree anonid="resultTree" flex="1" xbl:inherits="seltype">
 					<treecols anonid="treecols" style="min-height:24px">
-					   <treecol anonid="activedocument" class="treecol-image" label="${transui:m.useractionlogger.bo.general.Actif,ucf,attr}" 
+					   <treecol anonid="activedocument" class="treecol-image" label="${transui:m.useractionlogger.bo.general.actif,ucf,attr}" 
 								src="{IconsBase}/small/status-detail.png"
 								tooltiptext="${transui:m.useractionlogger.bo.general.Actif-tooltip,ucf,attr}"
 								style="padding-right: 5px;" />
-						<treecol sortonfield="date" flex="1" anonid="dateTime" label="${transui:m.useractionlogger.bo.general.Date,ucf,attr}" sortDirection="descending" />
-						<treecol sortonfield="user" flex="1" anonid="userName" label="${transui:m.useractionlogger.bo.general.User,ucf,attr}" />
-						<treecol anonid="description" flex="10"  label="${transui:m.useractionlogger.bo.general.Description,ucf,attr}" />
+						<treecol sortonfield="date" flex="1" anonid="dateTime" label="${transui:m.useractionlogger.bo.general.date,ucf,attr}" sortDirection="descending" />
+						<treecol sortonfield="user" flex="1" anonid="userName" label="${transui:m.useractionlogger.bo.general.user,ucf,attr}" />
+						<treecol anonid="description" flex="10"  label="${transui:m.useractionlogger.bo.general.description,ucf,attr}" />
 					</treecols>
 					<treechildren anonid="tree" />
 				</tree>
