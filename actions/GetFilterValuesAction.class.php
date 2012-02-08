@@ -42,7 +42,11 @@ class useractionlogger_GetFilterValuesAction extends f_action_BaseAction
 			{
 				$user = users_persistentdocument_user::getInstanceById($userId);
 				$label = $user->getFullname() . ' #' . $userId;
-				$result[$label] = array('id' => $userId, 'label' => $label);
+				$result[f_util_StringUtils::strtolower($label)] = array('id' => $userId, 'label' => $label);
+			}
+			elseif ($userId == -1)
+			{
+				$result['__system'] = array('id' => $userId, 'label' => 'System');
 			}
 			else 
 			{
