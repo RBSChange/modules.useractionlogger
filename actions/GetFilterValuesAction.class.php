@@ -31,29 +31,30 @@ class useractionlogger_GetFilterValuesAction extends change_Action
 	
 	private function buildUserList()
 	{
-		$service = useractionlogger_ModuleService::getInstance();
-		$userIds = $service->getUserInLog();
+		$pp = f_persistentdocument_PersistentProvider::getInstance();
+		$userModel = f_persistentdocument_PersistentDocumentModel::getInstance('users', 'user');
+		$validModelNames = array_merge(array('modules_users/user'), $userModel->getChildrenNames());
 		$result = array();
-		foreach ($userIds as $userId) 
+		foreach (useractionlogger_ModuleService::getInstance()->getUserInLog() as $userId) 
 		{
-			try 
+			$modelName = $pp->getDocumentModelName($userId);
+			if (in_array($modelName, $validModelNames))
 			{
-				$user = DocumentHelper::getDocumentInstance($userId);
-				if ($user instanceof users_persistentdocument_user)
-				{
-					$result[] = array('id' => $userId, 'label' => $user->getFullname());
-				}
-				else
-				{
-					$result[] = array('id' => $userId, 'label' => 'Deleted #'.$userId);
-				}
+				$user = users_persistentdocument_user::getInstanceById($userId);
+				$label = $user->getFullname() . ' #' . $userId;
+				$result[f_util_StringUtils::strtolower($label)] = array('id' => $userId, 'label' => $label);
 			}
-			catch (Exception $e)
+			elseif ($userId == -1)
 			{
-				$result[] = array('id' => $userId, 'label' => 'Deleted #'.$userId);
+				$result['__system'] = array('id' => $userId, 'label' => 'System');
+			}
+			else 
+			{
+				$result['zzz_' . $userId] = array('id' => $userId, 'label' => 'Deleted #' . $userId);
 			}
 		}
-		return $result;
+		ksort($result);
+		return array_values($result);
 	}
 	
 	private function buildModuleList()

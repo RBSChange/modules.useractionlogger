@@ -110,7 +110,7 @@
 					if (header.count == 0)
 					{
 						this.getElementByAnonid("navigationtb").setAttribute('collapsed', 'true');
-						resultlabel.setAttribute('value', "${trans:m.useractionlogger.bo.general.No-result,ucf,js}");
+						resultlabel.setAttribute('value', "${trans:m.useractionlogger.bo.general.no-result,ucf,js}");
 					}
 					else
 					{
@@ -216,9 +216,16 @@
 				<body><![CDATA[
 						//wCore.debug('wUserActionResults.buildTreeItemFromEntry');
 						
+						var id = entry[3] ? entry[4] : "";
 						var item = document.createElement("treeitem");
-						item.setAttribute("documentId", entry[3] ? entry[4] : "");
+						item.setAttribute("documentId", id);
 						var row = document.createElement("treerow");
+						
+						// DocumentId
+						var cell = document.createElement("treecell");
+						cell.setAttribute('label', id);
+						cell.setAttribute('properties', 'id');						
+						row.appendChild(cell);
 						
 						// activedocument
 						var cell = document.createElement("treecell");
@@ -305,10 +312,10 @@
 					<spacer flex="1" />
 					<toolbarbutton anonid="navigationbegin" disabled="true" oncommand="navigateBegin()"
 						image="{IconsBase}/small/control-begin.png"
-						tooltiptext="${trans:m.uixul.bo.general.Navigate-begin,ucf,attr}"/>
+						tooltiptext="${trans:m.uixul.bo.general.navigate-begin,ucf,attr}"/>
 					<toolbarbutton anonid="navigationback" disabled="true" oncommand="navigateBack()"
 						image="{IconsBase}/small/control-backward.png"
-						tooltiptext="${trans:m.uixul.bo.general.Navigate-back,ucf,attr}" />
+						tooltiptext="${trans:m.uixul.bo.general.navigate-back,ucf,attr}" />
 					<hbox align="center">
 
 						<label value="${trans:m.uixul.bo.general.Page,ucf,attr}" />
@@ -321,22 +328,28 @@
 					</hbox>
 					<toolbarbutton anonid="navigationnext" disabled="true" oncommand="navigateNext()"
 						image="{IconsBase}/small/control-forward.png"
-						tooltiptext="${trans:m.uixul.bo.general.Navigate-next,ucf,attr}" />
+						tooltiptext="${trans:m.uixul.bo.general.navigate-next,ucf,attr}" />
 					<toolbarbutton anonid="navigationend" disabled="true" oncommand="navigateEnd()"
 						image="{IconsBase}/small/control-end.png"
-						tooltiptext="${trans:m.uixul.bo.general.Navigate-end,ucf,attr}" />
+						tooltiptext="${trans:m.uixul.bo.general.navigate-end,ucf,attr}" />
 					<spacer flex="1" />
 				</toolbar>
 	
 				<tree anonid="resultTree" flex="1" xbl:inherits="seltype">
 					<treecols anonid="treecols" style="min-height:24px">
-					   <treecol anonid="activedocument" class="treecol-image" label="${trans:m.useractionlogger.bo.general.Actif,ucf,attr}" 
-								src="{IconsBase}/small/status-detail.png"
-								tooltiptext="${trans:m.useractionlogger.bo.general.Actif-tooltip,ucf,attr}"
-								style="padding-right: 5px;" />
-						<treecol sortonfield="date" flex="1" anonid="dateTime" label="${trans:m.useractionlogger.bo.general.Date,ucf,attr}" sortDirection="descending" />
-						<treecol sortonfield="user" flex="1" anonid="userName" label="${trans:m.useractionlogger.bo.general.User,ucf,attr}" />
-						<treecol anonid="description" flex="10"  label="${trans:m.useractionlogger.bo.general.Description,ucf,attr}" />
+						<treecol anonid="id-column"
+							label="${transui:m.uixul.bo.general.id,ucf,attr}" hidden="true"
+							tooltiptext="${transui:m.uixul.bo.general.id-tooltip,ucf,attr}"
+							class="treecol-image" src="{IconsBase}/small/id.png"
+							style="padding-right: 5px;" width="70px" />
+						<treecol anonid="activedocument" class="treecol-image"  hidden="true"
+					   		label="${transui:m.useractionlogger.bo.general.actif,ucf,attr}" 
+							src="{IconsBase}/small/status-detail.png"
+							tooltiptext="${transui:m.useractionlogger.bo.general.Actif-tooltip,ucf,attr}"
+							style="padding-right: 5px;" />
+						<treecol sortonfield="date" flex="1" anonid="dateTime" label="${trans:m.useractionlogger.bo.general.date,ucf,attr}" sortDirection="descending" />
+						<treecol sortonfield="user" flex="1" anonid="userName" label="${trans:m.useractionlogger.bo.general.user,ucf,attr}" />
+						<treecol anonid="description" flex="10"  label="${trans:m.useractionlogger.bo.general.description,ucf,attr}" />
 					</treecols>
 					<treechildren anonid="tree" />
 				</tree>
