@@ -34,7 +34,7 @@ class useractionlogger_PurgeLogTask extends task_SimpleSystemTask
 			if (Framework::isInfoEnabled())
 			{
 				Framework::info('Unlimited Users Actions log Entries');
-			}			
+			}
 		}
 	}
 }

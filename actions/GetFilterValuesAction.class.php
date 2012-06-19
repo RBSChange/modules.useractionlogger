@@ -67,7 +67,7 @@ class useractionlogger_GetFilterValuesAction extends change_Action
 		$ls = LocaleService::getInstance();
 		foreach ($moduleNames as $moduleName)
 		{		
-			$moduleLocalizedName = $ls->transBO('m.' . $moduleName . '.bo.general.module-name', $modifier);
+			$moduleLocalizedName = $ls->trans('m.' . $moduleName . '.bo.general.module-name', $modifier);
 			$moduleList[$moduleLocalizedName] = array('id' => $moduleName, 'label' => $moduleLocalizedName);
 		}
 		ksort($moduleList);
@@ -96,7 +96,7 @@ class useractionlogger_GetFilterValuesAction extends change_Action
 			{
 				$localKey =	'm.' . $moduleName . '.bo.useractionlogger.log-' . str_replace('.', '-', $actionName);
 			}
-			$actionLabel = $ls->transBO($localKey, $modifier);
+			$actionLabel = $ls->trans($localKey, $modifier);
 			$actionList[$actionLabel] = array('id' => $actionName, 'label' => $actionLabel, 'module' => $moduleName);
 		}
 		ksort($actionList);

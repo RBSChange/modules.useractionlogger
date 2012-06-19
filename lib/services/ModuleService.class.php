@@ -6,11 +6,11 @@
 class useractionlogger_ModuleService extends ModuleBaseService
 {
 	/**
-	 * @param Integer $userId
-	 * @param String $moduleName
-	 * @param String $actionName
-	 * @param Integer $documentId
-	 * @return Integer
+	 * @param integer $userId
+	 * @param string $moduleName
+	 * @param string $actionName
+	 * @param integer $documentId
+	 * @return integer
 	 */
 	public function getCountUserActionEntry($userId, $moduleName, $actionName, $documentId)
 	{
@@ -18,14 +18,14 @@ class useractionlogger_ModuleService extends ModuleBaseService
 	}
 
 	/**
-	 * @param Integer $userId
-	 * @param String $moduleName
-	 * @param String $actionName
-	 * @param Integer $documentId
-	 * @param Integer $rowIndex
-	 * @param Integer $rowCount
-	 * @param String $sortOnField (date | user)
-	 * @param String $sortDirection (ASC | DESC)
+	 * @param integer $userId
+	 * @param string $moduleName
+	 * @param string $actionName
+	 * @param integer $documentId
+	 * @param integer $rowIndex
+	 * @param integer $rowCount
+	 * @param string $sortOnField (date | user)
+	 * @param string $sortDirection (ASC | DESC)
 	 * @return useractionlogger_Entry[]
 	 */
 	public final function getUserActionEntry($userId, $moduleName, $actionName, $documentId, $rowIndex, $rowCount, $sortOnField, $sortDirection)
@@ -40,7 +40,7 @@ class useractionlogger_ModuleService extends ModuleBaseService
 	}
 	
 	/**
-	 * @return String[]
+	 * @return string[]
 	 */
 	public final function getActionInLog()
 	{
@@ -54,7 +54,7 @@ class useractionlogger_ModuleService extends ModuleBaseService
 	}
 	
 	/**
-	 * @return String[]
+	 * @return string[]
 	 */
 	public final function getModuleInLog()
 	{
@@ -68,7 +68,7 @@ class useractionlogger_ModuleService extends ModuleBaseService
 	}
 		
 	/**
-	 * @return Integer[]
+	 * @return integer[]
 	 */
 	public final function getUserInLog()
 	{

@@ -1,27 +1,10 @@
 <?php
 /**
- * useractionlogger_ActiondefService
- * @package useractionlogger
+ * @package modules.useractionlogger
+ * @method useractionlogger_ActiondefService getInstance()
  */
 class useractionlogger_ActiondefService extends f_persistentdocument_DocumentService
 {
-	/**
-	 * @var useractionlogger_ActiondefService
-	 */
-	private static $instance;
-
-	/**
-	 * @return useractionlogger_ActiondefService
-	 */
-	public static function getInstance()
-	{
-		if (self::$instance === null)
-		{
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
-
 	/**
 	 * @return useractionlogger_persistentdocument_actiondef
 	 */
@@ -36,12 +19,12 @@ class useractionlogger_ActiondefService extends f_persistentdocument_DocumentSer
 	 */
 	public function createQuery()
 	{
-		return $this->pp->createQuery('modules_useractionlogger/actiondef');
+		return $this->getPersistentProvider()->createQuery('modules_useractionlogger/actiondef');
 	}
 	
 	/**
-	 * @param String $moduleName
-	 * @param String $codeName
+	 * @param string $moduleName
+	 * @param string $codeName
 	 * @return useractionlogger_persistentdocument_actiondef
 	 */
 	public function getByModuleAndCode($moduleName, $codeName)

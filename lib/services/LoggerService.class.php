@@ -8,10 +8,10 @@ class useractionlogger_LoggerService extends UserActionLoggerService
 {
 	/**
 	 * @param users_persistentdocument_user
-	 * @param String $actionName
+	 * @param string $actionName
 	 * @param f_persistentdocument_PersistentDocument $document
 	 * @param array $info
-	 * @param String $moduleName
+	 * @param string $moduleName
 	 */
 	public function addUserDocumentEntry($user, $actionName, $document, $info, $moduleName)
 	{
@@ -97,10 +97,10 @@ class useractionlogger_LoggerService extends UserActionLoggerService
 	}
 	
 	/**
-	 * @param String $actionName
+	 * @param string $actionName
 	 * @param f_persistentdocument_PersistentDocument $document
 	 * @param array $info
-	 * @param String $moduleName
+	 * @param string $moduleName
 	 */
 	public function addCurrentUserDocumentEntry($actionName, $document, $info, $moduleName)
 	{
@@ -116,9 +116,9 @@ class useractionlogger_LoggerService extends UserActionLoggerService
 	}
 	
 	/**
-	 * @param String $moduleName
-	 * @param String $codeName
-	 * @return String | null
+	 * @param string $moduleName
+	 * @param string $codeName
+	 * @return string | null
 	 */
 	private function getActionLabelMask($moduleName, $codeName)
 	{
@@ -131,10 +131,10 @@ class useractionlogger_LoggerService extends UserActionLoggerService
 	}
 	
 	/**
-	 * @param String $actionName
+	 * @param string $actionName
 	 * @param array $info
-	 * @param String $moduleName
-	 * @return String | null
+	 * @param string $moduleName
+	 * @return string | null
 	 */
 	private function generateDefaultActionDef($actionName, $info, $moduleName)
 	{
