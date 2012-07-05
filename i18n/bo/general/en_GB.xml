@@ -1,20 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <i18n baseKey="m.useractionlogger.bo.general" lcid="en_GB">
-  <key id="actif">Active</key>
-  <key id="actif-tooltip">Document not deleted</key>
-  <key id="all-action">All actions</key>
-  <key id="all-modules">All modules</key>
-  <key id="all-user">All users</key>
-  <key id="date">Date</key>
-  <key id="description">Description</key>
-  <key id="filter-by-action">Filter by action</key>
-  <key id="filter-by-module">Filter by module</key>
-  <key id="filter-by-user">Filter by user</key>
-  <key id="module-name">User action history</key>
-  <key id="no-result">No result</key>
-  <key id="refresh-result">Refreshing</key>
-  <key id="search-result-count">Result(s)</key>
-  <key id="system-folder-name">User action history</key>
-  <key id="tree-root-name">User action history</key>
-  <key id="user">User</key>
+	<key id="actif">Active</key>
+	<key id="actif-tooltip">Document not deleted</key>
+	<key id="all-action">All actions</key>
+	<key id="all-modules">All modules</key>
+	<key id="all-user">All users</key>
+	<key id="date">Date</key>
+	<key id="description">Description</key>
+	<key id="filter-by-action">Filter by action</key>
+	<key id="filter-by-module">Filter by module</key>
+	<key id="filter-by-user">Filter by user</key>
+	<key id="module-name">User action history</key>
+	<key id="no-result">No result</key>
+	<key id="refresh-result">Refreshing</key>
+	<key id="search-result-count">Result(s)</key>
+	<key id="system-folder-name">User action history</key>
+	<key id="tree-root-name">User action history</key>
+	<key id="user">User</key>
 </i18n>

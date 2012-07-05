@@ -8,12 +8,12 @@
 			]]></handler>
 			
 			<handler event="click" clickcount="1"><![CDATA[
-			    var tn = event.originalTarget.tagName;	    
-			    if (tn == "treecol")
-			    {
-			        this.handleSort(event.originalTarget);
-			        return;
-			    }
+				var tn = event.originalTarget.tagName;		
+				if (tn == "treecol")
+				{
+					this.handleSort(event.originalTarget);
+					return;
+				}
 			]]></handler>
 		</handlers>
 
@@ -32,8 +32,8 @@
 			<method name="getElementByAnonid">
 				<parameter name="id" />
 				<body><![CDATA[
-                    return document.getAnonymousElementByAttribute(this, "anonid", id);
-                ]]></body>
+					return document.getAnonymousElementByAttribute(this, "anonid", id);
+				]]></body>
 			</method>
 			
 			<method name="getFilterParam">
@@ -115,7 +115,7 @@
 					else
 					{
 						this.getElementByAnonid("navigationtb").removeAttribute('collapsed');
-						resultlabel.setAttribute('value', header.count + " ${trans:m.useractionlogger.bo.general.Search-result-count,ucf,js}");
+						resultlabel.setAttribute('value', header.count + " ${trans:m.useractionlogger.bo.general.search-result-count,ucf,js}");
 					}
 					var navIndex = this.getElementByAnonid('navigationindex');
 					var nbPage = Math.ceil(header.count / this.pageSize);
@@ -318,7 +318,7 @@
 						tooltiptext="${trans:m.uixul.bo.general.navigate-back,ucf,attr}" />
 					<hbox align="center">
 
-						<label value="${trans:m.uixul.bo.general.Page,ucf,attr}" />
+						<label value="${trans:m.uixul.bo.general.page,ucf,attr}" />
 						<menulist anonid="navigationindex" disabled="true" oncommand="navigateSelect()"
 							sizetopopup="none" width="50" height="22">
 							<menupopup />
@@ -338,14 +338,14 @@
 				<tree anonid="resultTree" flex="1" xbl:inherits="seltype">
 					<treecols anonid="treecols" style="min-height:24px">
 						<treecol anonid="id-column"
-							label="${transui:m.uixul.bo.general.id,ucf,attr}" hidden="true"
-							tooltiptext="${transui:m.uixul.bo.general.id-tooltip,ucf,attr}"
+							label="${trans:m.uixul.bo.general.id,ucf,attr}" hidden="true"
+							tooltiptext="${trans:m.uixul.bo.general.id-tooltip,ucf,attr}"
 							class="treecol-image" src="{IconsBase}/small/id.png"
 							style="padding-right: 5px;" width="70px" />
 						<treecol anonid="activedocument" class="treecol-image"  hidden="true"
-					   		label="${transui:m.useractionlogger.bo.general.actif,ucf,attr}" 
+					   		label="${trans:m.useractionlogger.bo.general.actif,ucf,attr}" 
 							src="{IconsBase}/small/status-detail.png"
-							tooltiptext="${transui:m.useractionlogger.bo.general.Actif-tooltip,ucf,attr}"
+							tooltiptext="${trans:m.useractionlogger.bo.general.actif-tooltip,ucf,attr}"
 							style="padding-right: 5px;" />
 						<treecol sortonfield="date" flex="1" anonid="dateTime" label="${trans:m.useractionlogger.bo.general.date,ucf,attr}" sortDirection="descending" />
 						<treecol sortonfield="user" flex="1" anonid="userName" label="${trans:m.useractionlogger.bo.general.user,ucf,attr}" />

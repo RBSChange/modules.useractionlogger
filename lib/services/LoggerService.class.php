@@ -138,7 +138,7 @@ class useractionlogger_LoggerService extends UserActionLoggerService
 	 */
 	private function generateDefaultActionDef($actionName, $info, $moduleName)
 	{
-		$defFilePath = f_util_FileUtils::buildWebeditPath('modules', $moduleName, 'setup', 'useractionlogger.xml');
+		$defFilePath = f_util_FileUtils::buildProjectPath('modules', $moduleName, 'setup', 'useractionlogger.xml');
 		if (is_writable(dirname($defFilePath)))
 		{
 			Framework::info(__METHOD__ . "($actionName, $moduleName, $defFilePath)");

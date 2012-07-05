@@ -87,9 +87,7 @@ class useractionlogger_ModuleService extends ModuleBaseService
 	 */
 	public function importInitScript($module)
 	{
-		$packageName = "modules_".$module;
-		$path = FileResolver::getInstance()->setPackageName($packageName)
-			->setDirectory('setup')->getPath('useractionlogger.xml');
+		$path = change_FileResolver::getNewInstance()->getPath('modules', $module, 'setup', 'useractionlogger.xml');
 		if ($path !== null)
 		{
 			$scriptReader = import_ScriptReader::getInstance();

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <i18n baseKey="m.useractionlogger.bo.actions" lcid="fr_FR">
-  <key id="create_">créer</key>
-  <key id="create-actiondef">Create actiondef</key>
+	<key id="create_">créer</key>
+	<key id="create-actiondef">Create actiondef</key>
 </i18n>
