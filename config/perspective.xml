@@ -40,6 +40,7 @@
 	</models>
 	<toolbar>
 		<toolbarbutton name="edit" />
+		<toolbarbutton name="delete" />
 	</toolbar>
 	<actions>
 		<action name="delete" permission="Delete" icon="delete2" labeli18n="m.uixul.bo.actions.Delete" />
