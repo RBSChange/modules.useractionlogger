@@ -49,5 +49,6 @@
 		<action name="openOrderChildren" single="true" permission="Order" icon="document_exchange" labeli18n="m.uixul.bo.actions.Set-children-order" />
 		<action name="move" permission="Move" icon="up_down" labeli18n="m.uixul.bo.actions.Move" />
 		<action name="openFolder" icon="folder_into" labeli18n="m.uixul.bo.actions.OpenFolder" />
+		<action name="createFolder" single="true" icon="create-folder" labeli18n="m.uixul.bo.actions.Create-folder" />
 	</actions>
 </perspective>
