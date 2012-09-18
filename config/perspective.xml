@@ -40,6 +40,7 @@
 	</models>
 	<toolbar>
 		<toolbarbutton name="edit" />
+		<toolbarbutton name="delete" />
 	</toolbar>
 	<actions>
 		<action name="delete" permission="Delete" icon="delete2" labeli18n="m.uixul.bo.actions.delete" />
@@ -48,5 +49,6 @@
 		<action name="openOrderChildren" single="true" permission="Order" icon="document_exchange" labeli18n="m.uixul.bo.actions.set-children-order" />
 		<action name="move" permission="Move" icon="up_down" labeli18n="m.uixul.bo.actions.move" />
 		<action name="openFolder" icon="folder_into" labeli18n="m.uixul.bo.actions.openfolder" />
+		<action name="createFolder" single="true" icon="create-folder" labeli18n="m.uixul.bo.actions.create-folder" />
 	</actions>
 </perspective>
