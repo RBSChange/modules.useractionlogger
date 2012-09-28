@@ -1,0 +1,6 @@
+{
+	"name": "rbschange/useractionlogger",
+	"description": "RBS Change Useractionlogger module",
+	"type": "rbschange-compatibility-module",
+	"license":"AGPL-3.0"
+}
