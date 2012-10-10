@@ -229,7 +229,7 @@
 						
 						// activedocument
 						var cell = document.createElement("treecell");
-						cell.setAttribute("properties", entry[3] ? "publicated" : "deleted");
+						cell.setAttribute("properties", entry[3] ? "published" : "deleted");
 						row.appendChild(cell);
 						
 						//dateTime 
