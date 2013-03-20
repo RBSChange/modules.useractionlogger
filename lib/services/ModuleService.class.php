@@ -71,7 +71,7 @@ class useractionlogger_ModuleService extends ModuleBaseService
 			
 			if (!isset($info['documentlabel'])) 
 			{
-				$info['documentlabel'] = $document->getLabel();
+				$info['documentlabel'] = $document->getTreeNodeLabel();
 			}
 			$document->getDocumentService()->addActionLogInfo($document, $actionName, $info);
 		}
